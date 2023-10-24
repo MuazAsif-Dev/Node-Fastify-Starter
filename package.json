@@ -1,0 +1,50 @@
+{
+	"name": "nfdp",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/index.js",
+	"type": "module",
+	"scripts": {
+		"start": "node dist/index.js",
+		"build": "tsc",
+		"dev": "tsx watch -r dotenv/config src/index.ts ",
+		"check": "npx tsc --watch --noEmit",
+		"lint": "eslint . --fix",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prepare": "husky install"
+	},
+	"lint-staged": {
+		"**/*.{js,jsx,ts,tsx}": [
+			"npx prettier --write",
+			"npx eslint --fix"
+		],
+		"*.{json,yaml}": [
+			"prettier --write"
+		]
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@commitlint/cli": "^18.0.0",
+		"@commitlint/config-conventional": "^18.0.0",
+		"@types/node": "^20.8.7",
+		"@typescript-eslint/eslint-plugin": "^6.8.0",
+		"@typescript-eslint/parser": "^6.8.0",
+		"dotenv": "^16.3.1",
+		"eslint": "^8.52.0",
+		"eslint-import-resolver-typescript": "^3.6.1",
+		"eslint-plugin-import": "^2.29.0",
+		"eslint-plugin-simple-import-sort": "^10.0.0",
+		"husky": "^8.0.0",
+		"lint-staged": "^15.0.2",
+		"pino-pretty": "^10.2.3",
+		"prettier": "^3.0.3",
+		"tsx": "^3.14.0",
+		"typescript": "^5.2.2"
+	},
+	"dependencies": {
+		"fastify": "^4.24.3",
+		"zod": "^3.22.4"
+	}
+}
