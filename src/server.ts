@@ -1,8 +1,8 @@
 import Fastify from "fastify";
 
-import { env } from "./config/env.js";
-import { loggerConfig } from "./config/logger.js";
-import router from "./routes/index.js";
+import { env } from "@/config/env.js";
+import { loggerConfig } from "@/config/logger.js";
+import router from "@/routes/index.js";
 
 export async function createServer() {
 	const app = Fastify({

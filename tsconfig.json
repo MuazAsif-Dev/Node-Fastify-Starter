@@ -13,7 +13,10 @@
 		"strict": true,
 		"moduleDetection": "force",
 		"noUncheckedIndexedAccess": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"paths": {
+			"@/*": ["./src/*"]
+		}
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "**/*.test.ts", "**/*.config.*", "dist/**/*"]
