@@ -6,7 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"start": "node dist/index.js",
-		"build": "tsc",
+		"build": "rimraf dist && tsc",
 		"dev": "tsx watch -r dotenv/config src/index.ts ",
 		"check": "npx tsc --watch --noEmit",
 		"lint": "eslint . --fix",
@@ -43,6 +43,7 @@
 		"lint-staged": "^15.0.2",
 		"pino-pretty": "^10.2.3",
 		"prettier": "^3.0.3",
+		"rimraf": "^5.0.5",
 		"tsx": "^3.14.0",
 		"typescript": "^5.2.2"
 	},
