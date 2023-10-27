@@ -1,3 +1,4 @@
+import helmet from "@fastify/helmet";
 import Fastify from "fastify";
 
 import { env } from "@/config/env.js";
@@ -8,6 +9,8 @@ export async function createServer() {
 	const app = Fastify({
 		logger: env.NODE_ENV ? loggerConfig[env.NODE_ENV] : true,
 	});
+
+	app.register(helmet);
 
 	app.register(router);
 

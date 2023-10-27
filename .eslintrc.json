@@ -23,6 +23,7 @@
 	"rules": {
 		"simple-import-sort/imports": "error",
 		"simple-import-sort/exports": "error",
+		"import/no-named-as-default": "off",
 		"@typescript-eslint/no-floating-promises": "off",
 		"@typescript-eslint/require-await": "off",
 		"@typescript-eslint/no-misused-promises": "off"
