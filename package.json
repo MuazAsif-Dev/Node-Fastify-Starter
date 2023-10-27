@@ -27,6 +27,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"@fastify/helmet": "^11.1.1",
+		"@fastify/rate-limit": "^8.0.3",
 		"drizzle-orm": "^0.28.6",
 		"fastify": "^4.24.3",
 		"pg": "^8.11.3",

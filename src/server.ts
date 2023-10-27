@@ -1,4 +1,5 @@
 import helmet from "@fastify/helmet";
+import rateLimit from "@fastify/rate-limit";
 import Fastify from "fastify";
 
 import { env } from "@/config/env.js";
@@ -11,6 +12,10 @@ export async function createServer() {
 	});
 
 	app.register(helmet);
+	app.register(rateLimit, {
+		max: 60,
+		timeWindow: 60 * 1000,
+	});
 
 	app.register(router);
 
