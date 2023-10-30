@@ -10,5 +10,6 @@ export const loggerConfig = {
 		},
 	},
 	production: true,
+	staging: true,
 	test: false,
 };
