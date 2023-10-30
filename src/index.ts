@@ -17,6 +17,8 @@ async function main() {
 
 	signals.forEach((signal) => {
 		process.on(signal, async () => {
+			server.log.info("Server closing");
+
 			await server.close();
 
 			process.exit(0);
