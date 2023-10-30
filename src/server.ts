@@ -2,9 +2,9 @@ import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
 import Fastify from "fastify";
 
-import { env } from "@/config/env.js";
-import { loggerConfig } from "@/config/logger.js";
-import router from "@/routes/index.js";
+import { env } from "@/config/env";
+import { loggerConfig } from "@/config/logger";
+import router from "@/routes";
 
 export async function createServer() {
 	const app = Fastify({
