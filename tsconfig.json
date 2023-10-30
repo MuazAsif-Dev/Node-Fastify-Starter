@@ -1,17 +1,15 @@
 {
 	"compilerOptions": {
 		"target": "ES2022",
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext",
+		"module": "Node16",
+		"moduleResolution": "Node16",
 		"outDir": "dist",
 		"sourceMap": true,
 		"allowJs": true,
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
-		"verbatimModuleSyntax": true,
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
-		"moduleDetection": "force",
 		"noUncheckedIndexedAccess": true,
 		"skipLibCheck": true,
 		"paths": {
