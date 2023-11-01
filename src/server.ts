@@ -17,7 +17,7 @@ export async function createServer() {
 		timeWindow: 60 * 1000,
 	});
 
-	app.register(router);
+	app.register(router, { prefix: "/api/v1" });
 
 	return app;
 }
