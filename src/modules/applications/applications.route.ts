@@ -1,7 +1,10 @@
 import type { FastifyInstance } from "fastify";
 
-import { createApplicationHandler } from "./application.controller";
-import { createApplicationJsonSchema } from "./application.schema";
+import {
+	createApplicationHandler,
+	getApplicationsHandler,
+} from "./applications.controller";
+import { createApplicationJsonSchema } from "./applications.schema";
 
 export default async function applicationRouter(router: FastifyInstance) {
 	router.post(
@@ -10,5 +13,5 @@ export default async function applicationRouter(router: FastifyInstance) {
 		createApplicationHandler,
 	);
 
-	router.get("/", () => {});
+	router.get("/", getApplicationsHandler);
 }

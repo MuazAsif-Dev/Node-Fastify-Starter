@@ -8,7 +8,7 @@ import {
 	varchar,
 } from "drizzle-orm/pg-core";
 
-import { applications } from "./application.model";
+import { applications } from "./applications.model";
 
 export const roles = pgTable(
 	"roles",

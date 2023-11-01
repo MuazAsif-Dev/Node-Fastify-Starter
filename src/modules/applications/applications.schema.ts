@@ -2,7 +2,7 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import zodToJsonSchema from "zod-to-json-schema";
 
-import { applications } from "../../db/models/application.model";
+import { applications } from "@/db/models/applications.model";
 
 const createApplicationApiValidatorSchema = createInsertSchema(
 	applications,

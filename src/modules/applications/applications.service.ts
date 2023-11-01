@@ -1,8 +1,7 @@
 import { InferInsertModel } from "drizzle-orm";
 
 import { db } from "@/db/dbConnection";
-
-import { applications } from "../../db/models/application.model";
+import { applications } from "@/db/models/applications.model";
 
 export async function createApplication(
 	data: InferInsertModel<typeof applications>,
@@ -12,7 +11,7 @@ export async function createApplication(
 	return result[0];
 }
 
-export async function getApplication() {
+export async function getApplications() {
 	const result = await db
 		.select({
 			id: applications.id,
@@ -21,5 +20,5 @@ export async function getApplication() {
 		})
 		.from(applications);
 
-	return result[0];
+	return result;
 }
