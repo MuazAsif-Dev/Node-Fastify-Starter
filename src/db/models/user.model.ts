@@ -1,31 +1,31 @@
 import {
 	pgTable,
 	primaryKey,
-	text,
 	timestamp,
 	uniqueIndex,
 	uuid,
 	varchar,
 } from "drizzle-orm/pg-core";
 
-import { applications } from "./application.schema";
+import { applications } from "./application.model";
 
-export const roles = pgTable(
-	"roles",
+export const users = pgTable(
+	"users",
 	{
 		id: uuid("id").defaultRandom().notNull(),
+		email: varchar("email", { length: 256 }).notNull(),
 		name: varchar("name", { length: 256 }).notNull(),
 		applicationId: uuid("applicationId")
 			.references(() => applications.id)
 			.notNull(),
-		permissions: text("permissions").array().$type<Array<string>>(),
+		password: varchar("password", { length: 256 }).notNull(),
 		createdAt: timestamp("created_at").defaultNow().notNull(),
 		updatedAt: timestamp("updated_at").defaultNow().notNull(),
 	},
-	(roles) => {
+	(users) => {
 		return {
-			cpk: primaryKey(roles.name, roles.applicationId),
-			idIndex: uniqueIndex("roles_id_index").on(roles.id),
+			cpk: primaryKey(users.email, users.applicationId),
+			idIndex: uniqueIndex("users_id_index").on(users.id),
 		};
 	},
 );

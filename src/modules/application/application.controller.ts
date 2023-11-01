@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { createApplicationRequestType } from "@/db/schemas/application.schema";
-import { createApplication } from "@/services/application.service";
+import { createApplicationRequestType } from "./application.schema";
+import { createApplication } from "./application.service";
 
 export async function createApplicationHandler(
 	req: FastifyRequest<{ Body: createApplicationRequestType }>,
@@ -11,5 +11,5 @@ export async function createApplicationHandler(
 
 	const application = await createApplication({ name });
 
-	return res.send({ application });
+	return res.status(200).send({ application });
 }

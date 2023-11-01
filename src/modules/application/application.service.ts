@@ -1,7 +1,8 @@
 import { InferInsertModel } from "drizzle-orm";
 
 import { db } from "@/db/dbConnection";
-import { applications } from "@/db/schemas/application.schema";
+
+import { applications } from "../../db/models/application.model";
 
 export async function createApplication(
 	data: InferInsertModel<typeof applications>,
