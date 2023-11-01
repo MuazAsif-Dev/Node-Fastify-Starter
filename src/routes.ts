@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify";
 
-import applicationRouter from "@/modules/applications/application.route";
+import applicationRouter from "@/modules/applications/applications.route";
 import authRouter from "@/modules/auth/auth.route";
-import userRouter from "@/modules/users/user.route";
+import userRouter from "@/modules/users/users.route";
 
 export default async function router(router: FastifyInstance) {
 	router.get("/", async () => {
