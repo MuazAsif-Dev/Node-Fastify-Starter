@@ -30,6 +30,7 @@
 	"dependencies": {
 		"@fastify/helmet": "^11.1.1",
 		"@fastify/rate-limit": "^8.0.3",
+		"argon2": "^0.31.1",
 		"drizzle-orm": "^0.28.6",
 		"drizzle-zod": "^0.5.1",
 		"fastify": "^4.24.3",
