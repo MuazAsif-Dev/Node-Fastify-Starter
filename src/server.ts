@@ -1,3 +1,4 @@
+import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
 import rateLimit from "@fastify/rate-limit";
 import Fastify from "fastify";
@@ -10,6 +11,8 @@ export async function createServer() {
 	const app = Fastify({
 		logger: env.NODE_ENV ? loggerConfig[env.NODE_ENV] : true,
 	});
+
+	app.register(cors, {});
 
 	app.register(helmet);
 	app.register(rateLimit, {
