@@ -8,7 +8,7 @@ const createApplicationApiValidatorSchema = createInsertSchema(
 	applications,
 ).pick({ name: true });
 
-export type createApplicationRequestType = z.infer<
+export type createApplicationRequestBodyType = z.infer<
 	typeof createApplicationApiValidatorSchema
 >;
 

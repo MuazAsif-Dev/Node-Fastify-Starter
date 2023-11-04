@@ -4,7 +4,7 @@ import Fastify from "fastify";
 
 import { env } from "@/config/env";
 import { loggerConfig } from "@/config/logger";
-import router from "@/routes";
+import router from "@/modules/v1/routes";
 
 export async function createServer() {
 	const app = Fastify({

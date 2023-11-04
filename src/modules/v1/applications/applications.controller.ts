@@ -5,13 +5,13 @@ import {
 	SYSTEM_ROLES,
 	USER_ROLE_PERMISSIONS,
 } from "@/config/data/permissions";
-import { createRole } from "@/modules/roles/roles.service";
+import { createRole } from "@/modules/v1/roles/roles.service";
 
-import { createApplicationRequestType } from "./applications.schema";
+import { createApplicationRequestBodyType } from "./applications.schema";
 import { createApplication, getApplications } from "./applications.service";
 
 export async function createApplicationHandler(
-	req: FastifyRequest<{ Body: createApplicationRequestType }>,
+	req: FastifyRequest<{ Body: createApplicationRequestBodyType }>,
 	res: FastifyReply,
 ) {
 	const { name } = req.body;
