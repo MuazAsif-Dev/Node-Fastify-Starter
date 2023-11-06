@@ -8,6 +8,7 @@ const envSchema = z.object({
 		.enum(["development", "staging", "production"])
 		.default("development"),
 	DATABASE_URI: z.string().url().startsWith("postgres://"),
+	JWT_SECRET_KEY: z.string(),
 });
 
 export const env = envSchema.parse(process.env);
