@@ -1,12 +1,18 @@
+import * as argon2 from "argon2";
 import { FastifyReply, FastifyRequest } from "fastify";
 
 import { SYSTEM_ROLES } from "@/config/data/permissions";
 
 import { getRoleByName } from "../roles/roles.service";
-import { createUserRequestBodyType } from "./users.schema";
+import {
+	createUserRequestBodyType,
+	createUserToRolesRequestBodyType,
+	loginUserRequestBodyType,
+} from "./users.schema";
 import {
 	assignRoleToUser,
 	createUser,
+	getUserByEmail,
 	getUsersByApplicationId,
 } from "./users.service";
 
@@ -56,4 +62,63 @@ export async function createUserHandler(
 	});
 
 	return user;
+}
+
+export async function loginHandler(
+	request: FastifyRequest<{
+		Body: loginUserRequestBodyType;
+	}>,
+	res: FastifyReply,
+) {
+	const { applicationId, email, password } = request.body;
+
+	const user = await getUserByEmail({
+		applicationId,
+		email,
+	});
+
+	if (!user || !(await argon2.verify(user.password, password))) {
+		return res.code(400).send({
+			message: "Invalid email or password",
+		});
+	}
+
+	const token = await res.jwtSign(
+		{
+			id: user.id,
+			email,
+			applicationId,
+			scopes: user.permissions,
+		},
+		{
+			sign: {
+				expiresIn: "5m",
+			},
+		},
+	);
+
+	return { token };
+}
+
+export async function assignRoleTouserHandler(
+	req: FastifyRequest<{
+		Body: createUserToRolesRequestBodyType;
+	}>,
+	reply: FastifyReply,
+) {
+	const { userId, roleId, applicationId } = req.body;
+
+	const result = await assignRoleToUser({
+		userId,
+		applicationId,
+		roleId,
+	});
+
+	if (!result) {
+		return reply.code(400).send({
+			message: "Error: Could not assign role to user",
+		});
+	}
+
+	return result;
 }
