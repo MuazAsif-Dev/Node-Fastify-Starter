@@ -1,6 +1,6 @@
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
-import fastifyJwt from "@fastify/jwt";
+import jwt from "@fastify/jwt";
 import rateLimit from "@fastify/rate-limit";
 import Fastify from "fastify";
 
@@ -21,7 +21,7 @@ export async function createServer() {
 		timeWindow: 60 * 1000,
 	});
 
-	app.register(fastifyJwt, { secret: env.JWT_SECRET_KEY });
+	app.register(jwt, { secret: env.JWT_SECRET_KEY });
 
 	app.register(router, { prefix: "/api/v1" });
 
