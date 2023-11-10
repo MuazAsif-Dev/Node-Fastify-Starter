@@ -18,7 +18,7 @@ export const roles = pgTable(
 		applicationId: uuid("applicationId")
 			.references(() => applications.id)
 			.notNull(),
-		permissions: text("permissions").array().$type<Array<string>>(),
+		permissions: text("permissions").array().$type<Array<string>>().notNull(),
 		createdAt: timestamp("created_at").defaultNow().notNull(),
 		updatedAt: timestamp("updated_at").defaultNow().notNull(),
 	},
