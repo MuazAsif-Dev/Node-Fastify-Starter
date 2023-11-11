@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 
 import applicationRouter from "./applications/applications.route";
+import roleRouter from "./roles/roles.routes";
 import userRouter from "./users/users.route";
 
 export default async function router(router: FastifyInstance) {
@@ -10,4 +11,5 @@ export default async function router(router: FastifyInstance) {
 
 	router.register(applicationRouter, { prefix: "/application" });
 	router.register(userRouter, { prefix: "/user" });
+	router.register(roleRouter, { prefix: "/role" });
 }
