@@ -46,13 +46,15 @@ export async function createUserHandler(
 	});
 
 	if (!role) {
-		return res.code(404).send({ message: "Role not found" });
+		res.code(404);
+		return { message: "Role not found" };
 	}
 
 	const user = await createUser(data);
 
 	if (!user) {
-		return res.code(400).send({ message: "User creation unsuccessful" });
+		res.code(404);
+		return { message: "User creation unsuccessful" };
 	}
 
 	await assignRoleToUser({
@@ -65,12 +67,12 @@ export async function createUserHandler(
 }
 
 export async function loginHandler(
-	request: FastifyRequest<{
+	req: FastifyRequest<{
 		Body: loginUserRequestBodyType;
 	}>,
 	res: FastifyReply,
 ) {
-	const { applicationId, email, password } = request.body;
+	const { applicationId, email, password } = req.body;
 
 	const user = await getUserByEmail({
 		applicationId,
@@ -78,9 +80,10 @@ export async function loginHandler(
 	});
 
 	if (!user || !(await argon2.verify(user.password, password))) {
-		return res.code(400).send({
+		res.code(400);
+		return {
 			message: "Invalid email or password",
-		});
+		};
 	}
 
 	const token = await res.jwtSign(
@@ -104,7 +107,7 @@ export async function assignRoleTouserHandler(
 	req: FastifyRequest<{
 		Body: createUserToRolesRequestBodyType;
 	}>,
-	reply: FastifyReply,
+	res: FastifyReply,
 ) {
 	const { userId, roleId, applicationId } = req.body;
 
@@ -115,9 +118,11 @@ export async function assignRoleTouserHandler(
 	});
 
 	if (!result) {
-		return reply.code(400).send({
+		res.code(400);
+
+		return {
 			message: "Error: Could not assign role to user",
-		});
+		};
 	}
 
 	return result;

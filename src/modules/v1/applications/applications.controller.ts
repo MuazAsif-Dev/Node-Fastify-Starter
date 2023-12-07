@@ -46,11 +46,13 @@ export async function createApplicationHandler(
 		throw new Error("Error creating application user role");
 	}
 
-	return res.status(201).send({
+	res.status(201);
+
+	return {
 		application,
 		superAdminRole: superAdminRole.value,
 		applicationUserRole: applicationUserRole.value,
-	});
+	};
 }
 
 export async function getApplicationsHandler() {

@@ -23,6 +23,6 @@ export default async function userRouter(router: FastifyInstance) {
 	);
 
 	router.get("/", () => {
-		return 1;
+		return "User Routes";
 	});
 }
