@@ -13,6 +13,10 @@ async function main() {
 
 	server.log.debug(env, "Here are the envs");
 
+	server.log.debug(
+		server.printRoutes({ commonPrefix: false, includeHooks: true }),
+	);
+
 	const signals = ["SIGINT", "SIGTERM"];
 
 	signals.forEach((signal) => {
