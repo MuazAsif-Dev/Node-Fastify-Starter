@@ -8,12 +8,12 @@ import {
 	varchar,
 } from "drizzle-orm/pg-core";
 
-import { applications } from "./applications.model";
+import { applications } from "./applications";
 
 export const roles = pgTable(
 	"roles",
 	{
-		id: uuid("id").defaultRandom().notNull(),
+		id: uuid("id").defaultRandom().notNull().unique(),
 		name: varchar("name", { length: 256 }).notNull(),
 		applicationId: uuid("applicationId")
 			.references(() => applications.id)
@@ -22,10 +22,8 @@ export const roles = pgTable(
 		createdAt: timestamp("created_at").defaultNow().notNull(),
 		updatedAt: timestamp("updated_at").defaultNow().notNull(),
 	},
-	(roles) => {
-		return {
-			cpk: primaryKey(roles.name, roles.applicationId),
-			idIndex: uniqueIndex("roles_id_index").on(roles.id),
-		};
-	},
+	(roles) => [
+		primaryKey({ columns: [roles.name, roles.applicationId] }),
+		uniqueIndex("roles_id_index").on(roles.id),
+	],
 );

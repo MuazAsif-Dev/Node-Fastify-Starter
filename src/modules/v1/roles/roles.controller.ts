@@ -1,6 +1,6 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
 
-import { createRoleRequestBodyType } from "./roles.schema";
+import type { createRoleRequestBodyType } from "./roles.schema";
 import { createRole } from "./roles.service";
 
 export async function createRoleHandler(

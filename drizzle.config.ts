@@ -1,12 +1,12 @@
-import type { Config } from "drizzle-kit";
 import { env } from "./src/config/env";
 
-export default {
-	schema: "./src/db/models/*",
+import { defineConfig } from "drizzle-kit";
+export default defineConfig({
 	out: "./src/db/migrations",
-	driver: "pg",
+	schema: "./src/db/schema/*",
+	dialect: "postgresql",
 	dbCredentials: {
-		connectionString: env.DATABASE_URI,
+		url: env.DATABASE_URI,
 	},
 	breakpoints: false,
-} satisfies Config;
+});

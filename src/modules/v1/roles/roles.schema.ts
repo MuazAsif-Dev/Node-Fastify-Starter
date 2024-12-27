@@ -3,12 +3,20 @@ import { z } from "zod";
 import zodToJsonSchema from "zod-to-json-schema";
 
 import { ALL_PERMISSIONS } from "@/config/data/permissions";
-import { roles } from "@/db/models/roles.model";
+import { roles } from "@/db/schema/roles";
 
-const createRoleApiValidatorSchema = createInsertSchema(roles, {
-	permissions: z.array(z.enum(ALL_PERMISSIONS)),
-	applicationId: (schema) => schema.applicationId.uuid(),
-}).pick({ name: true, permissions: true, applicationId: true });
+const roleInsertSchema = createInsertSchema(roles);
+
+const createRoleApiValidatorSchema = roleInsertSchema
+	.extend({
+		permissions: z.array(z.enum(ALL_PERMISSIONS)),
+		applicationId: z.string().uuid(),
+	})
+	.pick({
+		name: true,
+		permissions: true,
+		applicationId: true,
+	});
 
 export type createRoleRequestBodyType = z.infer<
 	typeof createRoleApiValidatorSchema

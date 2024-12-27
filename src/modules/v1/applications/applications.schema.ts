@@ -1,8 +1,8 @@
 import { createInsertSchema } from "drizzle-zod";
-import { z } from "zod";
+import type { z } from "zod";
 import zodToJsonSchema from "zod-to-json-schema";
 
-import { applications } from "@/db/models/applications.model";
+import { applications } from "@/db/schema/applications";
 
 const createApplicationApiValidatorSchema = createInsertSchema(
 	applications,

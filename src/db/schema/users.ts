@@ -7,12 +7,12 @@ import {
 	varchar,
 } from "drizzle-orm/pg-core";
 
-import { applications } from "./applications.model";
+import { applications } from "./applications";
 
 export const users = pgTable(
 	"users",
 	{
-		id: uuid("id").defaultRandom().notNull(),
+		id: uuid("id").defaultRandom().notNull().unique(),
 		email: varchar("email", { length: 256 }).notNull(),
 		name: varchar("name", { length: 256 }).notNull(),
 		applicationId: uuid("applicationId")
@@ -22,10 +22,8 @@ export const users = pgTable(
 		createdAt: timestamp("created_at").defaultNow().notNull(),
 		updatedAt: timestamp("updated_at").defaultNow().notNull(),
 	},
-	(users) => {
-		return {
-			cpk: primaryKey(users.email, users.applicationId),
-			idIndex: uniqueIndex("users_id_index").on(users.id),
-		};
-	},
+	(users) => [
+		primaryKey({ columns: [users.email, users.applicationId] }),
+		uniqueIndex("users_id_index").on(users.id),
+	],
 );

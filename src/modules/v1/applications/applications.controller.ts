@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
 
 import {
 	ALL_PERMISSIONS,
@@ -7,7 +7,7 @@ import {
 } from "@/config/data/permissions";
 import { createRole } from "@/modules/v1/roles/roles.service";
 
-import { createApplicationRequestBodyType } from "./applications.schema";
+import type { createApplicationRequestBodyType } from "./applications.schema";
 import { createApplication, getApplications } from "./applications.service";
 
 export async function createApplicationHandler(

@@ -2,13 +2,13 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 import zodToJsonSchema from "zod-to-json-schema";
 
-import { users } from "@/db/models/users.model";
-import { usersToRoles } from "@/db/models/usersToRoles.model";
+import { users } from "@/db/schema/users";
+import { usersToRoles } from "@/db/schema/users-to-roles";
 
 const createUserTableSchema = createInsertSchema(users, {
-	email: (schema) => schema.email.email(),
-	applicationId: (schema) => schema.applicationId.uuid(),
-	password: (schema) => schema.password.min(6),
+	email: (schema) => schema.email(),
+	applicationId: (schema) => schema.uuid(),
+	password: (schema) => schema.min(6),
 });
 
 const createUserApiValidatorSchema = createUserTableSchema.extend({
@@ -27,9 +27,9 @@ export const createUserJsonSchema = {
 };
 
 const selectUserTableSchema = createSelectSchema(users, {
-	email: (schema) => schema.email.email(),
-	applicationId: (schema) => schema.applicationId.uuid(),
-	password: (schema) => schema.password.min(6),
+	email: (schema) => schema.email(),
+	applicationId: (schema) => schema.uuid(),
+	password: (schema) => schema.min(6),
 });
 
 const loginUserApiValidatorSchema = selectUserTableSchema.pick({

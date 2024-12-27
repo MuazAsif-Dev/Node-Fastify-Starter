@@ -1,10 +1,10 @@
 import * as argon2 from "argon2";
-import { FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
 
 import { SYSTEM_ROLES } from "@/config/data/permissions";
 
 import { getRoleByName } from "../roles/roles.service";
-import {
+import type {
 	createUserRequestBodyType,
 	createUserToRolesRequestBodyType,
 	loginUserRequestBodyType,
