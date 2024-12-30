@@ -1,7 +1,7 @@
 import { type InferInsertModel, and, eq } from "drizzle-orm";
 
-import { db } from "@/db";
-import { roles } from "@/db/schema/roles";
+import { db } from "@/db/index.js";
+import { roles } from "@/db/schema/roles.js";
 
 export async function createRole(data: InferInsertModel<typeof roles>) {
 	const result = await db.insert(roles).values(data).returning();

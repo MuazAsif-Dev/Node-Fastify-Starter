@@ -1,7 +1,7 @@
 import type { InferInsertModel } from "drizzle-orm";
 
-import { db } from "@/db";
-import { applications } from "@/db/schema/applications";
+import { db } from "@/db/index.js";
+import { applications } from "@/db/schema/applications.js";
 
 export async function createApplication(
 	data: InferInsertModel<typeof applications>,

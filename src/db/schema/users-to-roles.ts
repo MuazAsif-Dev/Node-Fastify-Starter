@@ -1,8 +1,8 @@
 import { pgTable, primaryKey, timestamp, uuid } from "drizzle-orm/pg-core";
 
-import { applications } from "./applications";
-import { roles } from "./roles";
-import { users } from "./users";
+import { applications } from "./applications.js";
+import { roles } from "./roles.js";
+import { users } from "./users.js";
 
 export const usersToRoles = pgTable(
 	"usersToRoles",
@@ -20,13 +20,13 @@ export const usersToRoles = pgTable(
 		createdAt: timestamp("created_at").defaultNow().notNull(),
 		updatedAt: timestamp("updated_at").defaultNow().notNull(),
 	},
-	(usersToRoles) => {
-		return {
-			cpk: primaryKey(
+	(usersToRoles) => [
+		primaryKey({
+			columns: [
 				usersToRoles.applicationId,
 				usersToRoles.userId,
 				usersToRoles.roleId,
-			),
-		};
-	},
+			],
+		}),
+	],
 );

@@ -1,20 +1,20 @@
 import * as argon2 from "argon2";
 import type { FastifyReply, FastifyRequest } from "fastify";
 
-import { SYSTEM_ROLES } from "@/config/data/permissions";
+import { SYSTEM_ROLES } from "@/config/data/permissions.js";
 
-import { getRoleByName } from "../roles/roles.service";
+import { getRoleByName } from "../roles/roles.service.js";
 import type {
 	createUserRequestBodyType,
 	createUserToRolesRequestBodyType,
 	loginUserRequestBodyType,
-} from "./users.schema";
+} from "./users.schema.js";
 import {
 	assignRoleToUser,
 	createUser,
 	getUserByEmail,
 	getUsersByApplicationId,
-} from "./users.service";
+} from "./users.service.js";
 
 export async function createUserHandler(
 	req: FastifyRequest<{ Body: createUserRequestBodyType }>,

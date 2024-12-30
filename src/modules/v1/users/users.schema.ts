@@ -1,9 +1,9 @@
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
-import zodToJsonSchema from "zod-to-json-schema";
 
-import { users } from "@/db/schema/users";
-import { usersToRoles } from "@/db/schema/users-to-roles";
+import { usersToRoles } from "@/db/schema/users-to-roles.js";
+import { users } from "@/db/schema/users.js";
+import { zodToJsonSchema } from "zod-to-json-schema";
 
 const createUserTableSchema = createInsertSchema(users, {
 	email: (schema) => schema.email(),
@@ -20,6 +20,7 @@ export type createUserRequestBodyType = z.infer<
 >;
 
 export const createUserJsonSchema = {
+	tags: ["users"],
 	body: zodToJsonSchema(
 		createUserApiValidatorSchema,
 		"createUserApiValidatorSchema",
@@ -43,6 +44,7 @@ export type loginUserRequestBodyType = z.infer<
 >;
 
 export const loginUserJsonSchema = {
+	tags: ["users"],
 	body: zodToJsonSchema(
 		loginUserApiValidatorSchema,
 		"loginUserApiValidatorSchema",
@@ -60,6 +62,7 @@ export type createUserToRolesRequestBodyType = z.infer<
 >;
 
 export const createUserToRolesJsonSchema = {
+	tags: ["users"],
 	body: zodToJsonSchema(
 		createUserToRolesTableSchema,
 		"createUserToRolesTableSchema",

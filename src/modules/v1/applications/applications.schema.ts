@@ -1,8 +1,8 @@
 import { createInsertSchema } from "drizzle-zod";
 import type { z } from "zod";
-import zodToJsonSchema from "zod-to-json-schema";
+import { zodToJsonSchema } from "zod-to-json-schema";
 
-import { applications } from "@/db/schema/applications";
+import { applications } from "@/db/schema/applications.js";
 
 const createApplicationApiValidatorSchema = createInsertSchema(
 	applications,
@@ -13,6 +13,7 @@ export type createApplicationRequestBodyType = z.infer<
 >;
 
 export const createApplicationJsonSchema = {
+	tags: ["application"],
 	body: zodToJsonSchema(
 		createApplicationApiValidatorSchema,
 		"createApplicationApiValidatorSchema",

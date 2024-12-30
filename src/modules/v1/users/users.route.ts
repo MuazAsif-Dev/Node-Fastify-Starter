@@ -4,12 +4,12 @@ import {
 	assignRoleTouserHandler,
 	createUserHandler,
 	loginHandler,
-} from "./users.controller";
+} from "./users.controller.js";
 import {
 	createUserJsonSchema,
 	createUserToRolesJsonSchema,
 	loginUserJsonSchema,
-} from "./users.schema";
+} from "./users.schema.js";
 
 export default async function userRouter(router: FastifyInstance) {
 	router.post("/", { schema: createUserJsonSchema }, createUserHandler);

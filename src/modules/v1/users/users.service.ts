@@ -1,10 +1,10 @@
 import * as argon2 from "argon2";
 import { type InferInsertModel, and, eq } from "drizzle-orm";
 
-import { db } from "@/db";
-import { roles } from "@/db/schema/roles";
-import { users } from "@/db/schema/users";
-import { usersToRoles } from "@/db/schema/users-to-roles";
+import { db } from "@/db/index.js";
+import { roles } from "@/db/schema/roles.js";
+import { usersToRoles } from "@/db/schema/users-to-roles.js";
+import { users } from "@/db/schema/users.js";
 
 export async function createUser(data: InferInsertModel<typeof users>) {
 	const hashedPassword = await argon2.hash(data.password);

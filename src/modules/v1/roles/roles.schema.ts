@@ -1,9 +1,9 @@
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-import zodToJsonSchema from "zod-to-json-schema";
+import { zodToJsonSchema } from "zod-to-json-schema";
 
-import { ALL_PERMISSIONS } from "@/config/data/permissions";
-import { roles } from "@/db/schema/roles";
+import { ALL_PERMISSIONS } from "@/config/data/permissions.js";
+import { roles } from "@/db/schema/roles.js";
 
 const roleInsertSchema = createInsertSchema(roles);
 
