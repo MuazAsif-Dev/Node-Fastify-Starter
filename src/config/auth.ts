@@ -1,0 +1,15 @@
+import { db } from "@/db/index.js";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { openAPI } from "better-auth/plugins";
+
+export const auth = betterAuth({
+	basePath: "/api/v1/auth",
+	plugins: [openAPI()],
+	database: drizzleAdapter(db, {
+		provider: "pg",
+	}),
+	emailAndPassword: {
+		enabled: true,
+	},
+});

@@ -18,7 +18,7 @@ export async function createServer() {
 
 	app.register(cors, {});
 
-	app.register(helmet);
+	// app.register(helmet);
 	app.register(rateLimit, {
 		max: 60,
 		timeWindow: 60 * 1000,
