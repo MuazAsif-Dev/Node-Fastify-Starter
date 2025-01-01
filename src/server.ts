@@ -10,6 +10,7 @@ import { env } from "@/config/env.js";
 import { loggerConfig } from "@/config/logger.js";
 import { OpenAPIConfig } from "@/config/openapi.js";
 import router from "@/modules/v1/routes.js";
+import { fastifyBetterAuthPlugin } from "@/plugins/better-auth.js";
 
 export async function createServer() {
 	const app = Fastify({
@@ -17,6 +18,8 @@ export async function createServer() {
 	});
 
 	app.register(cors, {});
+
+	app.register(fastifyBetterAuthPlugin);
 
 	// app.register(helmet);
 	app.register(rateLimit, {
