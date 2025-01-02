@@ -1,10 +1,10 @@
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
-import { z } from "zod";
+
+import { getUserByIdHandler, getUserByIdSchema } from "./get-user-by-id.js";
 
 export default async function userRouter(router: FastifyInstance) {
 	const typedRouter = router.withTypeProvider<ZodTypeProvider>();
-
 	typedRouter.get(
 		"/",
 		{
@@ -22,14 +22,9 @@ export default async function userRouter(router: FastifyInstance) {
 		{
 			schema: {
 				tags: ["User"],
-				params: z.object({
-					userId: z.string(),
-				}),
+				...getUserByIdSchema,
 			},
 		},
-		async (req) => {
-			const { userId } = req.params;
-			return { userId };
-		},
+		getUserByIdHandler,
 	);
 }

@@ -8,8 +8,8 @@ const envSchema = z.object({
 	NODE_ENV: z
 		.enum(["development", "staging", "production"])
 		.default("development"),
-	DATABASE_URI: z.string().url().startsWith("postgres://"),
-	JWT_SECRET_KEY: z.string(),
+	WRITER_DATABASE_URI: z.string().url().startsWith("postgres://"),
+	READER_DATABASE_URI: z.string().url().startsWith("postgres://"),
 });
 
 let parsedEnv: z.infer<typeof envSchema>;
