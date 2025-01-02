@@ -8,7 +8,11 @@ import { loggerConfig } from "@/config/logger.js";
 import router from "@/modules/v1/routes.js";
 import { fastifyBetterAuthPlugin } from "@/plugins/better-auth.js";
 import { ScalarOpenApiDocsPlugin } from "@/plugins/scalar-docs.js";
-import { validatorCompiler } from "fastify-type-provider-zod";
+import {
+	hasZodFastifySchemaValidationErrors,
+	isResponseSerializationError,
+	validatorCompiler,
+} from "fastify-type-provider-zod";
 import { serializerCompiler } from "fastify-type-provider-zod";
 
 export async function createServer() {
@@ -45,6 +49,32 @@ export async function createServer() {
 
 	app.setErrorHandler(async (err, req, res) => {
 		app.log.error({ err });
+
+		if (hasZodFastifySchemaValidationErrors(err)) {
+			return res.code(400).send({
+				error: "Response Validation Error",
+				message: "Request doesn't match the schema",
+				statusCode: 400,
+				details: {
+					issues: err.validation,
+					method: req.method,
+					url: req.url,
+				},
+			});
+		}
+
+		if (isResponseSerializationError(err)) {
+			return res.code(500).send({
+				error: "Internal Server Error",
+				message: "Response doesn't match the schema",
+				statusCode: 500,
+				details: {
+					issues: err.cause.issues,
+					method: err.method,
+					url: err.url,
+				},
+			});
+		}
 
 		res.status(err.statusCode || 500);
 
