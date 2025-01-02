@@ -1,25 +1,25 @@
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
-import jwt from "@fastify/jwt";
 import rateLimit from "@fastify/rate-limit";
-import fastifySwagger from "@fastify/swagger";
-import ScalarApiReference from "@scalar/fastify-api-reference";
 import Fastify from "fastify";
 
 import { env } from "@/config/env.js";
 import { loggerConfig } from "@/config/logger.js";
-import { OpenAPIConfig } from "@/config/openapi.js";
 import router from "@/modules/v1/routes.js";
 import { fastifyBetterAuthPlugin } from "@/plugins/better-auth.js";
+import { ScalarOpenApiDocsPlugin } from "@/plugins/scalar-docs.js";
+import { validatorCompiler } from "fastify-type-provider-zod";
+import { serializerCompiler } from "fastify-type-provider-zod";
 
 export async function createServer() {
 	const app = Fastify({
 		logger: loggerConfig[env.NODE_ENV],
 	});
 
-	app.register(cors, {});
+	app.setValidatorCompiler(validatorCompiler);
+	app.setSerializerCompiler(serializerCompiler);
 
-	app.register(fastifyBetterAuthPlugin);
+	app.register(cors, {});
 
 	// app.register(helmet);
 	app.register(rateLimit, {
@@ -27,14 +27,28 @@ export async function createServer() {
 		timeWindow: 60 * 1000,
 	});
 
-	app.register(jwt, { secret: env.JWT_SECRET_KEY });
+	app.register(fastifyBetterAuthPlugin);
 
-	app.register(fastifySwagger, OpenAPIConfig);
+	app.register(ScalarOpenApiDocsPlugin);
 
 	app.register(router, { prefix: "/api/v1" });
 
-	app.register(ScalarApiReference, {
-		routePrefix: "/docs",
+	app.register((fastify) => {
+		fastify.get("/openapi.json", async () => {
+			return fastify.swagger();
+		});
+
+		fastify.get("/healthcheck", async () => {
+			return { message: "Server is running" };
+		});
+	});
+
+	app.setErrorHandler(async (err, req, res) => {
+		app.log.error({ err });
+
+		res.status(err.statusCode || 500);
+
+		return { message: "An error has occured" };
 	});
 
 	await app.ready();

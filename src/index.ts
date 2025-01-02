@@ -1,5 +1,6 @@
 import { env } from "@/config/env.js";
 import { createServer } from "@/server.js";
+import closeWithGrace from "close-with-grace";
 
 async function main() {
 	const server = await createServer();
@@ -17,15 +18,14 @@ async function main() {
 		server.printRoutes({ commonPrefix: false, includeHooks: true }),
 	);
 
-	const signals = ["SIGINT", "SIGTERM"];
-
-	for (const signal of signals) {
-		process.on(signal, async () => {
-			server.log.info("Server closing");
-			await server.close();
-			process.exit(0);
-		});
-	}
+	closeWithGrace(async ({ signal, err, manual }) => {
+		if (err) {
+			server.log.error({ err }, "server closing with error");
+		} else {
+			server.log.info(`${signal} received, server closing`);
+		}
+		await server.close();
+	});
 }
 
 main();

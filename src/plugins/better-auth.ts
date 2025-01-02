@@ -1,6 +1,6 @@
 import { auth } from "@/config/auth.js";
 import { toNodeHandler } from "better-auth/node";
-import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyInstance } from "fastify";
 
 export async function fastifyBetterAuthPlugin(
 	fastify: FastifyInstance,
@@ -14,15 +14,7 @@ export async function fastifyBetterAuthPlugin(
 		},
 	);
 
-	fastify.all(
-		"/api/v1/auth/*",
-		{
-			schema: {
-				tags: ["auth"],
-			},
-		},
-		async (request, reply) => {
-			await authhandler(request.raw, reply.raw);
-		},
-	);
+	fastify.all("/api/v1/auth/*", async (request, reply) => {
+		await authhandler(request.raw, reply.raw);
+	});
 }
